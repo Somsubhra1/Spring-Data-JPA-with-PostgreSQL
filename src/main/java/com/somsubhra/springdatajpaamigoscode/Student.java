@@ -3,6 +3,13 @@ package com.somsubhra.springdatajpaamigoscode;
 import javax.persistence.*;
 
 @Entity(name = "Student")
+//Unique constraint renaming:
+@Table(
+        name = "student",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "student_email_unique", columnNames = "email")
+        }
+)
 public class Student {
     @Id
     @SequenceGenerator(
@@ -14,6 +21,7 @@ public class Student {
             strategy = GenerationType.SEQUENCE,
             generator = "student_sequence"
     )
+//    manually set column configurations
     @Column(
             name = "id",
             updatable = false
@@ -34,8 +42,8 @@ public class Student {
     @Column(
             name = "email",
             nullable = false,
-            columnDefinition = "TEXT",
-            unique = true
+            columnDefinition = "TEXT"
+//            unique = true
     )
     private String email;
     @Column(
